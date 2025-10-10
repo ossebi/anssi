@@ -85,6 +85,9 @@ interface EditVisionProps {
 export interface Article {
     id: number;
     title: string;
+    tag: string;
+    description: string;
+    image: string | null;
     slug: string;
     sectionsData?: {
         id: number;
@@ -185,5 +188,11 @@ export interface Texte {
 
 export interface Textes {
     textesProps: Paginated<Texte>;
+}
+
+export interface Faq {
+    id: number;
+    question: string;
+    answer: string;
 }
 

@@ -8,7 +8,10 @@ class Article extends Model
 {
         protected $fillable = [
         'title',
+        'tag',
+        'description',
         'slug',
+        'image',
     ];
 
     public function sectionArticles()

@@ -19,6 +19,9 @@ export const schemaService = yup.object({
 
 export const schemaArticle = yup.object({
     title: yup.string().required("Le titre de l'article est obligatoire"),
+    tag: yup.string().required("Le tag de l'article est obligatoire"),
+    description: yup.string().required("La description de l'article est obligatoire"),
+    image: yup.string().nullable(),
 });
 
 export const schemaVision = yup.object({
@@ -42,7 +45,7 @@ export const schemaAbout = yup.object({
 });
 
 export const schemaSectionPage = yup.object({
-    title: yup.string().required("Le titre de la section est obligatoire"),
+    title: yup.string().nullable(),
     img_path: yup.string().nullable(),
     content: yup.string().nullable(),
     page_id: yup.number().required("La page est obligatoire"),
@@ -55,6 +58,11 @@ export const schemaTexte = yup.object({
     page_id: yup.number().required("La page est obligatoire"), 
 });
 
+export const schemaFaq = yup.object({
+    question: yup.string().required("La question est obligatoire"),
+    answer: yup.string().required("La réponse est obligatoire"),
+});
+
 
 export type PageFormData = yup.InferType<typeof schemaPage>;
 export type ServiceFormData = yup.InferType<typeof schemaService>;
@@ -64,4 +72,5 @@ export type SectionFormData = yup.InferType<typeof schemaSection>;
 export type AboutFormData = yup.InferType<typeof schemaAbout>;
 export type SectionPageFormData = yup.InferType<typeof schemaSectionPage>;
 export type TexteFormData = yup.InferType<typeof schemaTexte>;
+export type FaqFormData = yup.InferType<typeof schemaFaq>;
 

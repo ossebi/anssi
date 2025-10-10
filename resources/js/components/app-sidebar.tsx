@@ -68,13 +68,18 @@ const mainNavItems: NavItem[] = [
 const footerNavItems: NavItem[] = [
     {
         title: 'Articles',
-        href: articles.index(),
+        href: admin.articles.index(),
         icon: Newspaper,
     },
     {
         title: 'Visions',
         href: vision.index(),
         icon: Eye,
+    },
+    {
+        title: 'FAQ',
+        href: admin.faqs.index(),
+        icon: Voicemail,
     },
     //  {
     //     title: 'Textes & lois',

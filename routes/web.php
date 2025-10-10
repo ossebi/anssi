@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AproposController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SectionAboutController;
 use App\Http\Controllers\SectionArticleController;
@@ -39,11 +40,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    Route::resource('articles', ArticleController::class);
+
     Route::resource('section_abouts', SectionAboutController::class);
 
 
     Route::prefix('admin')->group(function () {
+
+        Route::get('/articles', [ArticleController::class, 'index'])->name('admin.articles.index');
+        Route::get('/articles/create', [ArticleController::class, 'create'])->name('admin.articles.create');
+        Route::post('/articles', [ArticleController::class, 'store'])->name('admin.articles.store');
+        Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('admin.articles.edit');
+        Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('admin.articles.update');
+        Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('admin.articles.destroy');
+
+
         Route::get('/pages', [PageController::class, 'index'])->name('admin.pages.index');
 
         Route::get('/pages/{slug}', [PageController::class, 'show'])->name('admin.pages.show');
@@ -69,6 +79,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/textes/{id}', [TexteController::class, 'destroy'])->name('admin.textes.destroy');
 
 
+        Route::get('/faq', [FaqController::class, 'index'])->name('admin.faqs.index');
+        Route::get('/faq/create', [FaqController::class, 'create'])->name('admin.faqs.create');
+        Route::post('/faq', [FaqController::class, 'store'])->name('admin.faqs.store');
+        Route::get('/faq/{faq}', [FaqController::class, 'show'])->name('admin.faqs.show');
+        Route::get('/faq/{faq}/edit', [FaqController::class, 'edit'])->name('admin.faqs.edit');
+        Route::put('/faq/{faq}', [FaqController::class, 'update'])->name('admin.faqs.update');
+        Route::delete('/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faqs.destroy');
     });
 
     Route::prefix('abouts')->group(function () {

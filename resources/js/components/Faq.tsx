@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Faq as Question } from "@/types";
 
-export interface FaqItem {
-    question: string;
-    answer: string;
-}
 
 interface FaqProps {
-    faqs: FaqItem[];
+    faqDatas: Question[];
 }
 
 
-export default function Faq({ faqs }: FaqProps) {
+export default function Faq({ faqDatas }: FaqProps) {
 
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -22,7 +19,7 @@ export default function Faq({ faqs }: FaqProps) {
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="space-y-6">
-                {faqs.map((item, index) => (
+                {faqDatas.map((item, index) => (
                     <div key={index} className="border-b border-gray-200 dark:border-gray-700 pb-4">
                         {/* Question */}
                         <button
@@ -64,7 +61,7 @@ export default function Faq({ faqs }: FaqProps) {
                                     className="overflow-hidden"
                                 >
                                     <p className="mt-4 text-gray-500 dark:text-gray-300">
-                                        {item.answer}
+                                        <div dangerouslySetInnerHTML={{ __html: item.answer }} />
                                     </p>
                                 </motion.div>
                             )}

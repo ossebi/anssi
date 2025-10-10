@@ -1,6 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import article from '@/routes/article';
-import articles from '@/routes/articles';
+import admin from '@/routes/admin';
 import sections from '@/routes/sections';
 import { Articles, Visions, type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
@@ -19,7 +18,7 @@ export default function Index({ articlesProps }: Articles) {
             <Head title="Visions" />
             <div className="rounded-xl p-4">
                 <Link className='cursor-pointer px-3 py-2 text-xs font-medium text-white bg-blue-700 rounded hover:bg-blue-800'
-                    href={articles.create()}>
+                    href={admin.articles.create()}>
                     Ajouter un article
                 </Link>
             </div>
@@ -28,6 +27,8 @@ export default function Index({ articlesProps }: Articles) {
                     <thead className="bg-gray-100">
                         <tr>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Titre</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Tag</th>
+                            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Image</th>
                             <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Actions</th>
                         </tr>
                     </thead>
@@ -37,19 +38,27 @@ export default function Index({ articlesProps }: Articles) {
                                 <td className="px-4 py-2 text-sm font-semibold">
                                     <div dangerouslySetInnerHTML={{ __html: item.title }} />
                                 </td>
+                                <td className="px-4 py-2 text-sm capitalize">{item.tag}</td>
+                                <td className="px-4 py-2 text-sm">
+                                    {item.image ? (
+                                        <img src={`/Storage/${item.image}`} alt={item.title} className="h-12 w-12 object-cover" />
+                                    ) : (
+                                        <span>Aucune image</span>
+                                    )}
+                                </td>
 
                                 <td className="px-4 py-2 text-sm">
                                     <div className='flex gap-x-1'>
                                         <Link href={sections.articles.index(item.slug)} className="mr-2 text-blue-600 hover:underline" title='Ajouter une section'>
                                             <PlusCircle className='w-5' />
                                         </Link>
-                                        <Link href={articles.edit(item.id)} className="mr-2 text-green-600 hover:underline" title='Modifier'>
+                                        <Link href={admin.articles.edit(item.id)} className="mr-2 text-green-600 hover:underline" title='Modifier'>
                                             <Edit className='w-5' />
                                         </Link>
                                         <Link
                                             as="button"
                                             method="delete"
-                                            href={articles.destroy.url(item.id)}
+                                            href={admin.articles.destroy.url(item.id)}
                                             className="text-red-600 hover:underline"
                                             title='Supprimer'
                                         >
@@ -66,7 +75,7 @@ export default function Index({ articlesProps }: Articles) {
 
                                     <div className="rounded-xl p-4">
                                         <Link className='cursor-pointer px-3 py-2 text-xs font-medium text-white bg-sky-700 rounded hover:bg-blue-800'
-                                            href={articles.create()}>
+                                            href={admin.articles.create()}>
                                             Créer un article
                                         </Link>
                                     </div>

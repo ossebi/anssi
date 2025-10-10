@@ -22,7 +22,7 @@ class SectionPageFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'content' => 'nullable|string',
             'img_path' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
             'page_id' => 'required|exists:pages,id',
@@ -32,7 +32,6 @@ class SectionPageFormRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Le titre est obligatoire.',
             'title.string' => 'Le titre doit être une chaîne de caractères.',
             'title.max' => 'Le titre ne doit pas dépasser 255 caractères.',
 

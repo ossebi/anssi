@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PageRequest;
+use App\Models\Article;
+use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Vision;
 use App\Services\PageService;
@@ -96,7 +98,9 @@ class PageController extends Controller
 
         $pagesData = Page::all();
 
-        return Inertia::render('welcome', compact( 'visionsProps', 'pagesData'));
+        $newsList = Article::latest()->take(6)->get();
+
+        return Inertia::render('welcome', compact( 'visionsProps', 'pagesData', 'newsList'));
     }
 
     public function article()
@@ -156,8 +160,10 @@ class PageController extends Controller
         $slug = 'foire-aux-questions';
 
         $pageData = $this->pageService->getPageBySlug($slug);
-        
-        return Inertia::render('faq', compact('pageData'));
+
+        $faqDatas = Faq::all();
+
+        return Inertia::render('faq', compact('pageData', 'faqDatas'));
     }
     public function contact()
     {

@@ -1,5 +1,5 @@
-import { schemaSectionPage, SectionPageFormData } from "@/pages/schemas";
-import { SectionPage } from "@/types";
+import { FaqFormData, schemaFaq } from "@/pages/schemas";
+import { Faq } from "@/types";
 import { useForm } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import * as yup from 'yup';
@@ -9,20 +9,18 @@ import { Save } from "lucide-react";
 import admin from "@/routes/admin";
 
 
-export default function SectionPageForm({ item, pageId }: { item?: SectionPage, pageId: number }) {
+export default function FaqForm({ item }: { item?: Faq }) {
 
     const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
-    const { data, setData, post, put, errors, processing } = useForm<SectionPageFormData>({
-        title: item?.title ?? '',
-        content: item?.content ?? '',
-        img_path: item?.img_path ?? '',
-        page_id: pageId,
+    const { data, setData, post, put, errors, processing } = useForm<FaqFormData>({
+        question: item?.question ?? '',
+        answer: item?.answer ?? '',
     });
 
     const validateForm = async (): Promise<boolean> => {
         try {
-            await schemaSectionPage.validate(data, { abortEarly: false });
+            await schemaFaq.validate(data, { abortEarly: false });
             setValidationErrors({});
             return true;
         } catch (error) {
@@ -45,14 +43,13 @@ export default function SectionPageForm({ item, pageId }: { item?: SectionPage, 
         if (!isValid) return;
 
         if (item) {
-            put(admin.sections.update.url(item.id), {
-                //  forceFormData: true,
+            put(admin.faqs.update.url(item.id), {
                 preserveScroll: true,
                
             });
 
         } else {
-            post(admin.sections.store.url(), {
+            post(admin.faqs.store.url(), {
                 forceFormData: true,
                 preserveScroll: true,
             });
@@ -63,10 +60,8 @@ export default function SectionPageForm({ item, pageId }: { item?: SectionPage, 
     useEffect(() => {
         if (item) {
             setData({
-                title: item.title ?? '',
-                img_path: '',
-                content: item.content ?? '',
-                page_id: pageId,
+                question: item.question ?? '',
+                answer: item.answer ?? '',
             });
         }
     }, [item, setData]);
@@ -82,45 +77,30 @@ export default function SectionPageForm({ item, pageId }: { item?: SectionPage, 
             <div className="px-4">
 
                 <div className="mb-4">
-                    <label htmlFor="title" className="block font-medium">
-                        Titre
+                    <label htmlFor="question" className="block font-medium">
+                        Question
                     </label>
                     <input
-                        id="title"
+                        id="question"
                         type="text"
-                        value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
+                        value={data.question}
+                        onChange={(e) => setData('question', e.target.value)}
                         className="w-full rounded border p-2"
                     />
-                    {validationErrors.title && <p className="text-sm text-red-500">{validationErrors.title}</p>}
-                    {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
-                </div> 
-
-                <div className="mb-4">
-                    <label htmlFor="image" className="block font-medium">
-                        Image
-                    </label>
-                    <input
-                        id="image"
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setData('img_path', e.target.files ? e.target.files[0] : '')}
-                        className="w-full rounded border p-2"
-                    />
-                    {validationErrors.image && <p className="text-sm text-red-500">{validationErrors.image}</p>}
-                    {errors.img_path && <p className="text-sm text-red-500">{errors.img_path}</p>}
+                    {validationErrors.question && <p className="text-sm text-red-500">{validationErrors.question}</p>}
+                    {errors.question && <p className="text-sm text-red-500">{errors.question}</p>}
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="content" className="block font-medium">
-                        Contenu
+                    <label htmlFor="answer" className="block font-medium">
+                        Réponse
                     </label>
                     <CKEditor
                         editor={ClassicEditor as any}
-                        data={data.content || ''}
+                        data={data.answer || ''}
                         onChange={(_, editor) => {
-                            const content = editor.getData();
-                            setData('content', content);
+                            const answer = editor.getData();
+                            setData('answer', answer);
                         }}
                         config={{
                             toolbar: [
@@ -161,8 +141,8 @@ export default function SectionPageForm({ item, pageId }: { item?: SectionPage, 
                             table: { contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'] },
                         }}
                     />
-                    {validationErrors.content && <p className="text-sm text-red-500">{validationErrors.content}</p>}
-                    {errors.content && <p className="text-sm text-red-500">{errors.content}</p>}
+                    {validationErrors.answer && <p className="text-sm text-red-500">{validationErrors.answer}</p>}
+                    {errors.answer && <p className="text-sm text-red-500">{errors.answer}</p>}
                 </div>
             </div>
 

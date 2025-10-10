@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Services\ArticleService;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -43,10 +42,10 @@ class ArticleController extends Controller
     {
         $validated = $request->validated();
 
-        $this->articleService->createArticle($validated);
+        $this->articleService->createArticle($validated, $request->file('image'));
 
         // Redirection
-        return redirect()->route('articles.index')
+        return redirect()->route('admin.articles.index')
             ->with('success', "L'article a été créé avec succès !");
     }
 
@@ -78,6 +77,7 @@ class ArticleController extends Controller
         $this->articleService->updateArticle(
             $article,
             $validated,
+            $request->file('image')
         );
 
         return redirect()->back()

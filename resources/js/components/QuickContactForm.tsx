@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import banner from '../assets/images/background/inner_bg-DzLdov-A.png';
+import contact from "@/routes/contact";
+import { Link } from "@inertiajs/react";
 
 export default function QuickContactForm() {
   return (
@@ -25,12 +27,12 @@ export default function QuickContactForm() {
         <h1 className="text-3xl md:text-5xl font-bold"> Avez - vous besoin de plus amples informations ? </h1>
 
         <p className="mt-2 md:text-2xl opacity-90 text-xl">Restons connectés pour mieux protéger le cyberespace national.</p>
-        <a
-          href="/about"
+        <Link
+          href={contact.index()}
           className="inline-flex items-center gap-2 bg-orange-500 text-white px-6 py-3 rounded hover:bg-orange-600 transition w-52"
         >
           Nous Contactez <ArrowRight />
-        </a>
+        </Link>
 
       </motion.div>
     </div>

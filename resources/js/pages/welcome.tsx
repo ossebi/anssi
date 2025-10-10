@@ -1,6 +1,6 @@
 import ScrollingText from '@/components/ScrollingText';
 import TemplateLayout from '@/layouts/template-layout';
-import { Page, Paginated, Vision, type SharedData } from '@/types';
+import { Article, Page, Paginated, Vision, type SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import HeroBanner from '@/components/HeroBanner';
 import VisionSection from '@/components/VisionSection';
@@ -46,42 +46,43 @@ const partnersData = [
     { id: 6, name: "Partenaire 6", logo: "/logos/partenaire6.png" },
 ];
 
-const newsList = [
-    {
-        image: '/images/articles//blog-2--nKSonu9.jpg',
-        category: "Actualité",
-        title: "10 reliable sources to learn about IT solutions",
-        excerpt:
-            "Podcasting operational change management inside of workflows to establish a...",
-        link: "/blog-single",
-    },
-    {
-        image: "/images/articles/blog-3-Dxz3_V3b.jpg",
-        category: "Bulletin de sécurité",
-        title: "The ultimate guide to great UI/UX practices",
-        excerpt:
-            "Leverage agile frameworks to provide a robust synopsis for high level overviews...",
-        comments: 5,
-        link: "/blog-single",
-    },
-    {
-        image: "/images/articles//blog-2--nKSonu9.jpg",
-        category: "Bonne pratiques",
-        title: "Why cloud-native development is the future",
-        excerpt:
-            "Iterative approaches to corporate strategy foster collaborative thinking...",
-        comments: 3,
-        link: "/blog-single",
-    },
-];
+// const newsList = [
+//     {
+//         image: '/images/articles//blog-2--nKSonu9.jpg',
+//         category: "Actualité",
+//         title: "10 reliable sources to learn about IT solutions",
+//         excerpt:
+//             "Podcasting operational change management inside of workflows to establish a...",
+//         link: "/blog-single",
+//     },
+//     {
+//         image: "/images/articles/blog-3-Dxz3_V3b.jpg",
+//         category: "Bulletin de sécurité",
+//         title: "The ultimate guide to great UI/UX practices",
+//         excerpt:
+//             "Leverage agile frameworks to provide a robust synopsis for high level overviews...",
+//         comments: 5,
+//         link: "/blog-single",
+//     },
+//     {
+//         image: "/images/articles//blog-2--nKSonu9.jpg",
+//         category: "Bonne pratiques",
+//         title: "Why cloud-native development is the future",
+//         excerpt:
+//             "Iterative approaches to corporate strategy foster collaborative thinking...",
+//         comments: 3,
+//         link: "/blog-single",
+//     },
+// ];
 
 
 interface HomeProps {
     visionsProps: Paginated<Vision>;
     pagesData: Page[];
+    newsList: Article[];
 }
 
-export default function Welcome({ visionsProps, pagesData }: HomeProps) {
+export default function Welcome({ visionsProps, pagesData, newsList }: HomeProps) {
 
     const { auth } = usePage<SharedData>().props;
 

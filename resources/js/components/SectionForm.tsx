@@ -50,6 +50,7 @@ export default function SectionForm({ item, articleId }: { item?: Section, artic
             put(sections.articles.update.url(item.id), {
                 forceFormData: true,
                 preserveScroll: true,
+                
             });
 
             console.log(data);

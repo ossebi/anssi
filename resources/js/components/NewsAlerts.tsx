@@ -1,8 +1,15 @@
-import React from "react";
 import banner from '../assets/images/background/background-shape-BR5p4TLF.png';
 import { ArrowRight } from "lucide-react";
+import { Article } from "@/types";
+import { Link } from "@inertiajs/react";
+import article from "@/routes/article";
 
-const NewsAlerts = ({ newsList }) => {
+
+export interface NewsListProps {
+    newsList: Article[];
+}
+
+const NewsAlerts = ({ newsList }: NewsListProps) => {
     return (
         <section className="news-alerts py-32 bg-gray-50 relative overflow-hidden"
             style={{
@@ -42,38 +49,40 @@ const NewsAlerts = ({ newsList }) => {
                             className="bg-white rounded shadow hover:shadow-lg overflow-hidden transition-transform transform hover:-translate-y-1"
                         >
                             <img
-                                src={news.image}
+                                src={`/Storage/${news.image}`}
                                 alt={news.title}
                                 className="w-full h-48 object-cover"
                             />
                             <div className="p-5">
-                                <div className="text-sm text-orange-500 font-medium mb-2">
-                                    {news.category}
+                                <div className="text-sm text-orange-500 font-medium mb-2 uppercase">
+                                    {news.tag}
                                 </div>
                                 <h3 className="text-lg font-bold mb-2 text-sky-950">
-                                    <a href={news.link} className="hover:underline">
+                                    <a href={news.slug} className="hover:underline">
                                         {news.title}
                                     </a>
                                 </h3>
-                                <p className="text-gray-600 text-sm mb-4">{news.excerpt}</p>
+                                <p className="text-gray-600 text-sm mb-4">
+                                    <div dangerouslySetInnerHTML={{ __html: news.description || '' }}></div>
+                                </p>
                                 <div className="flex items-center justify-between text-sm">
-                                    <a
-                                        href={news.link}
+                                    <Link
+                                        href={news.slug}
                                         className="text-orange-500 font-semibold hover:underline flex items-center gap-1"
                                     >
                                         En savoir plus <ArrowRight />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
-                <a
-                    href="/about"
+                <Link
+                    href={article.index()}
                     className="inline-flex items-center justify-center gap-2 mt-14 border-sky-500 px-6 py-3 rounded bg-sky-700 text-white transition hover:bg-sky-700/80"
                 >
                     Voir toutes les actualités <ArrowRight />
-                </a>
+                </Link>
             </div>
         </section>
     );

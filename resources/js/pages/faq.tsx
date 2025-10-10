@@ -2,47 +2,18 @@ import Banner from '@/components/Banner'
 import TemplateLayout from '@/layouts/template-layout'
 import { Head } from '@inertiajs/react'
 import banner from '../assets/images/background/inner_bg-DzLdov-A.png';
-import Faq from '@/components/Faq';
 import ContactSection from '@/components/ContactSection';
-import { Page } from '@/types';
+import { Faq as Question, Page } from '@/types';
+import Faq from '@/components/Faq';
 
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
 
-const faqData: FaqItem[] = [
-  {
-    question: "Quelles sont les missions principales de l’ANSSI ?",
-    answer:
-      "L’ANSSI est chargée d’assurer la sécurité des systèmes d’information de l’État, de protéger les infrastructures critiques et d’accompagner les administrations et les entreprises dans leur cybersécurité."
-  },
-  {
-    question: "Comment l’ANSSI peut-elle aider mon organisation ?",
-    answer:
-      "L’ANSSI propose des recommandations, des audits, des formations et peut accompagner les structures dans la mise en place de plans de cybersécurité adaptés."
-  },
-  {
-    question: "Comment signaler un incident de cybersécurité à l’ANSSI ?",
-    answer:
-      "Vous pouvez signaler tout incident majeur via la plateforme nationale de signalement ou contacter directement le centre opérationnel de l’ANSSI disponible 24h/24."
-  },
-  {
-    question: "L’ANSSI propose-t-elle des formations en cybersécurité ?",
-    answer:
-      "Oui, l’ANSSI met à disposition des formations et des ateliers destinés aux agents publics et aux partenaires privés pour renforcer leurs compétences en sécurité informatique."
-  },
-  {
-    question: "L’ANSSI collabore-t-elle avec le secteur privé ?",
-    answer:
-      "Oui, l’ANSSI travaille en étroite collaboration avec les entreprises et les opérateurs d’importance vitale pour renforcer la sécurité nationale et développer un écosystème cybersécurisé."
-  }
-];
 export interface FaqProps {
   pageData: Page;
+  faqDatas: Question[];
 }
 
-export default function Aggrement({ pageData }: FaqProps) {
+export default function Aggrement({ pageData, faqDatas }: FaqProps) {
+
   return (
     <TemplateLayout>
       <Head title="Foire aux questions"></Head>
@@ -54,7 +25,7 @@ export default function Aggrement({ pageData }: FaqProps) {
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-12 items-center gap-14'>
           <div className='col-span-7'>
-            <Faq faqs={faqData} />
+            <Faq faqDatas={faqDatas} />
           </div>
           <div className='col-span-5'>
             <img src='/images/faq-left-img-DGpeLH8M.png' />
